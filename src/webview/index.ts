@@ -1,6 +1,10 @@
 import MindElixir from 'mind-elixir';
 import type { MindElixirData, NodeObj, Options } from 'mind-elixir';
 
+interface CallMapNodeObj extends NodeObj {
+  call: StringifyCommonCall
+  parent?: CallMapNodeObj
+}
 interface Window {
   acquireVsCodeApi(): {
     postMessage: (message: MessageFromWebview) => void
@@ -67,16 +71,16 @@ const handleMessage = (event: MessageEvent<MessageFromVSCode>) => {
     };
     const mind = new MindElixir(options);
     mind.init(data);
-    mind.bus.addListener(
-      'selectNode',
-      (nodeData: NodeObj & { call: StringifyCommonCall }, e) => {
-        console.log(nodeData);
-        vsc.postMessage({
-          command: e.ctrlKey ? 'openAndReveal' : 'reveal',
-          payload: nodeData.call,
-        });
-      }
-    );
+    mind.bus.addListener('selectNode', (nodeData: CallMapNodeObj, e) => {
+      console.log(nodeData);
+      vsc.postMessage({
+        command: e.ctrlKey ? 'openAndReveal' : 'reveal',
+        payload: {
+          pUri: nodeData?.parent?.call?.target.uri.path,
+          call: nodeData.call,
+        },
+      });
+    });
   }
 };
 window.addEventListener('message', handleMessage);

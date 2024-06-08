@@ -17,7 +17,10 @@ const revealSelection = (
 
 const openFileAndRevealSelection = async (uri: vscode.Uri, range: Range[]) => {
   const document = await vscode.workspace.openTextDocument(uri);
-  const newEditor = await vscode.window.showTextDocument(document);
+  const newEditor = await vscode.window.showTextDocument(
+    document,
+    vscode.ViewColumn.One
+  );
   revealSelection(range, newEditor);
 };
 
@@ -113,11 +116,12 @@ export const getCallsFactory = (
       (message: MessageFromWebview) => {
         console.log(message);
         if (message.command === 'reveal') {
-          const call = message.payload;
+          const { call, pUri } = message.payload;
+          const fileUri = vscode.Uri.file(pUri || entry.uri.path);
           const stringifyRange = call.fromRanges[0];
-          revealSelection(stringifyRange, activeTextEditor);
+          openFileAndRevealSelection(fileUri, stringifyRange);
         } else if (message.command === 'openAndReveal') {
-          const call = message.payload;
+          const { call } = message.payload;
           const uri = call.target.uri;
           const fileUri = vscode.Uri.file(uri.path);
           const stringifyRange = call.target.selectionRange;

@@ -36,11 +36,9 @@ type StringifyCallHierarchyIncomingCall = {
   from: Target
 }
 
-
-
 type MessageFromWebview = {
   command: 'reveal' | 'openAndReveal'
-  payload: StringifyCommonCall
+  payload: { call: StringifyCommonCall; pUri?: string }
 }
 
 type MessageFromVSCode =
@@ -60,5 +58,3 @@ type MessageFromVSCode =
         children: StringifyCommonCall[]
       }
     }
-
-   
