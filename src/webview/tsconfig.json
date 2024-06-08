@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "ES2018",
@@ -14,5 +15,5 @@
     "allowSyntheticDefaultImports": true
   },
   "include": ["./", "../../global.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

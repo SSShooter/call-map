@@ -1,4 +1,4 @@
-type Range = {
+type SRange = {
   line: number
   character: number
 }
@@ -9,30 +9,30 @@ type Uri = {
   scheme: string
 }
 
-type SelectionRange = [Range, Range]
+type SelectionRange = [SRange, SRange]
 
 type Target = {
   kind: number
   name: string
   detail: string
   uri: Uri
-  range: [Range, Range]
+  range: [SRange, SRange]
   selectionRange: SelectionRange
   _sessionId: string
   _itemId: string
 }
 type StringifyCommonCall = {
   name: string
-  fromRanges: [Range, Range][]
+  fromRanges: [SRange, SRange][]
   target: Target
   children?: StringifyCommonCall[]
 }
 type StringifyCallHierarchyOutgoingCall = {
-  fromRanges: [Range, Range][]
+  fromRanges: [SRange, SRange][]
   to: Target
 }
 type StringifyCallHierarchyIncomingCall = {
-  fromRanges: [Range, Range][]
+  fromRanges: [SRange, SRange][]
   from: Target
 }
 

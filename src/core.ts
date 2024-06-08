@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { MindElixirPanel } from './panel';
 
 const revealSelection = (
-  stringifyRange: Range[],
+  stringifyRange: SRange[],
   editor: vscode.TextEditor
 ) => {
   const range = new vscode.Range(
@@ -15,7 +15,7 @@ const revealSelection = (
   editor.revealRange(range, vscode.TextEditorRevealType.InCenter);
 };
 
-const openFileAndRevealSelection = async (uri: vscode.Uri, range: Range[]) => {
+const openFileAndRevealSelection = async (uri: vscode.Uri, range: SRange[]) => {
   const document = await vscode.workspace.openTextDocument(uri);
   const newEditor = await vscode.window.showTextDocument(
     document,
