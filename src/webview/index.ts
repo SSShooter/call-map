@@ -1,32 +1,33 @@
-import MindElixir from "mind-elixir";
-import type { MindElixirData, NodeObj, Options } from "mind-elixir";
-import * as vscode from "vscode"; 
+import MindElixir from 'mind-elixir';
+import type { MindElixirData, NodeObj, Options } from 'mind-elixir';
 
 interface Window {
-  acquireVsCodeApi(): any;
+  acquireVsCodeApi(): {
+    postMessage: (message: MessageFromWebview) => void
+  }
 }
 declare const window: Window & typeof globalThis;
 
 const vsc = window.acquireVsCodeApi();
 const E = MindElixir.E;
 const options: Options = {
-  el: "#map",
-  newTopicName: "子节点",
+  el: '#map',
+  newTopicName: '子节点',
   // direction: MindElixir.LEFT,
   direction: MindElixir.RIGHT,
   // data: MindElixir.new('new topic'),
-  locale: "en",
-  draggable: true,
-  editable: true,
+  locale: 'en',
+  draggable: false,
+  editable: false,
   contextMenu: true,
   contextMenuOption: {
     focus: true,
     link: true,
     extend: [
       {
-        name: "Node edit",
+        name: 'Node edit',
         onclick: () => {
-          alert("extend menu");
+          alert('extend menu');
         },
       },
     ],
@@ -38,37 +39,44 @@ const options: Options = {
   // mainBranchStyle: 2,
   theme: MindElixir.DARK_THEME,
 };
- 
-const handleMessage = (event: MessageFromVSCode) => {
-  if (event.data.command === "init") {
+
+const handleChild = (call: StringifyCommonCall): any => {
+  return {
+    topic: call.target.name,
+    id: Math.random().toString(),
+    call,
+    children: call.children?.map(handleChild),
+    tags: [call.target.uri.path.split('/').at(-1)],
+  };
+};
+
+const handleMessage = (event: MessageEvent<MessageFromVSCode>) => {
+  if (event.data.command === 'init') {
+    console.log(event.data);
     const payload = event.data.payload;
+    if (payload.type === 'in') {
+      options.direction = MindElixir.LEFT;
+    }
     const data: MindElixirData = {
       nodeData: {
-        topic: "root",
-        id: "root",
+        topic: payload.name,
+        id: 'root',
         root: true,
-        children: payload.children.map((call) => {
-          return {
-            topic: call.to.name,
-            id: Math.random().toString(),
-            call,
-            children: [],
-          };
-        }),
+        children: payload.children?.map(handleChild),
       },
     };
     const mind = new MindElixir(options);
     mind.init(data);
     mind.bus.addListener(
-      "selectNode",
-      (nodeData: NodeObj & { call: vscode.CallHierarchyOutgoingCall }) => {
+      'selectNode',
+      (nodeData: NodeObj & { call: StringifyCommonCall }, e) => {
         console.log(nodeData);
         vsc.postMessage({
-          command: "selectNode",
+          command: e.ctrlKey ? 'openAndReveal' : 'reveal',
           payload: nodeData.call,
         });
       }
     );
   }
 };
-window.addEventListener("message", handleMessage);
+window.addEventListener('message', handleMessage);

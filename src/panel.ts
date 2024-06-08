@@ -1,15 +1,16 @@
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 
 export class MindElixirPanel {
   panel: vscode.WebviewPanel;
-  constructor(private readonly _extensionUri: vscode.Uri) {
+  constructor(private readonly _extensionUri: vscode.Uri, name: string) {
     const panel = vscode.window.createWebviewPanel(
-      "mindElixir",
-      "Mind Elixir",
+      'mindElixir',
+      name,
       vscode.ViewColumn.Two,
       {
         // Enable scripts in the webview
         enableScripts: true,
+        retainContextWhenHidden: true,
       }
     );
     panel.webview.html = this.getWebviewContent(panel.webview);
@@ -17,7 +18,7 @@ export class MindElixirPanel {
   }
   getWebviewContent = (webview: vscode.Webview) => {
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "dist", "webview.js")
+      vscode.Uri.joinPath(this._extensionUri, 'dist', 'webview.js')
     );
     return `<!DOCTYPE html>
         <html lang="en">
@@ -35,12 +36,15 @@ export class MindElixirPanel {
                 border-style: solid;
                 border-color: #e5e7eb;
               }
-
-              #map,
-              #map2 {
-                margin-top: 50px;
-                height: 800px;
-                width: 100%;
+              body {
+                padding: 0;
+              }
+              #map{
+                height: 100vh;
+                width: 100vw;
+              }
+              me-main>me-wrapper{
+                margin:10px !important;
               }
             </style>
         </head>

@@ -1,22 +1,18 @@
 {
-    "compilerOptions": {
-      "module": "ESNext",
-      "moduleResolution": "node",
-      "target": "ES2018",
-      "outDir": "../out",
-      "rootDir": "./",
-      "typeRoots": ["./typings"],
-      "experimentalDecorators": true,
-      "noImplicitAny": true,
-      "sourceMap": true,
-      "strictNullChecks": false,
-      "jsx": "react",
-      "lib": ["dom", "esnext"],
-      "esModuleInterop": true,
-      "allowJs": true,
-      "allowSyntheticDefaultImports": true
-    },
-    "include": ["./"],
-    "exclude": ["node_modules"]
-  }
-  
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "ES2018",
+    "outDir": "../out",
+    "typeRoots": ["./typings"],
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "lib": ["dom", "esnext"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./", "../../global.d.ts"],
+  "exclude": ["node_modules"]
+}

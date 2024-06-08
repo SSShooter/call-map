@@ -21,9 +21,24 @@
       },
       {
         "command": "mind-elixir.outcall",
-        "title": "outcall"
+        "title": "CallMap: Show Outgoing Calls Map"
+      },
+      {
+        "command": "mind-elixir.incall",
+        "title": "CallMap: Show Incoming Calls Map"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Call Map Configuration",
+      "properties": {
+        "mindElixirCallMap.depth": {
+          "type": "number",
+          "default": 1,
+          "description": "The depth of the call map"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",
@@ -53,6 +68,6 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "mind-elixir": "^4.0.2"
+    "mind-elixir": "^4.0.4"
   }
 }

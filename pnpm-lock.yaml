@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   mind-elixir:
-    specifier: ^4.0.2
-    version: 4.0.2
+    specifier: ^4.0.4
+    version: 4.0.4
 
 devDependencies:
   '@types/mocha':
@@ -1925,8 +1925,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /mind-elixir@4.0.2:
-    resolution: {integrity: sha512-SWKuMD3DDdmarrULgYEZaKezbkWJ4BQQUsaSVHmXeNapHgpkFQByzJ2oLhs9x6hOaF5HkWuUly0tSLKWRYA+MA==}
+  /mind-elixir@4.0.4:
+    resolution: {integrity: sha512-07JZUdVZsIoDT9ZnpnFYvlaipaFWuy7JYtHbeMKYoRphv4bLSU340kHtX9OnpMHm0MfEPPvOue7AUkSwmFzh1A==}
     dev: false
 
   /minimatch@3.1.2:
