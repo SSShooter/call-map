@@ -1,11 +1,11 @@
 {
   "name": "call-map",
-  "displayName": "Mind Elixir Call Map",
+  "displayName": "Mind Elixir Calls Map",
   "icon": "images/icon.png",
   "publisher": "MindElixir",
   "repository": "https://github.com/SSShooter/call-map",
-  "description": "",
-  "version": "0.0.1",
+  "description": "Check function outgoing/incoming calls as a Mind Map.",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -19,10 +19,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "mind-elixir.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "mind-elixir.outcall",
         "title": "CallMap: Show Outgoing Calls Map"
       },
@@ -31,6 +27,20 @@
         "title": "CallMap: Show Incoming Calls Map"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "mind-elixir.outcall",
+          "when": "editorTextFocus",
+          "group": "4_search"
+        },
+        {
+          "command": "mind-elixir.incall",
+          "when": "editorTextFocus",
+          "group": "4_search"
+        }
+      ]
+    },
     "configuration": {
       "type": "object",
       "title": "Call Map Configuration",

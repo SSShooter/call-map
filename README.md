@@ -2,7 +2,7 @@
 
 ## Features
 
-Check function outgoing/incoming call as a Mind Map. Powered by Mind Elixir.
+Check function outgoing/incoming calls as a Mind Map. Powered by Mind Elixir.
 
 Command: `mind-elixir.outcall`, `mind-elixir.incall`
 
