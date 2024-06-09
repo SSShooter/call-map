@@ -1,7 +1,8 @@
 {
   "name": "call-map",
   "displayName": "Mind Elixir Call Map",
-  "publisher": "mind-elixir",
+  "icon": "images/icon.png",
+  "publisher": "MindElixir",
   "repository": "https://github.com/SSShooter/call-map",
   "description": "",
   "version": "0.0.1",
